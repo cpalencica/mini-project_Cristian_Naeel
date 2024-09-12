@@ -58,6 +58,13 @@ def scorer(t: list[int | None]) -> None:
     # and score (non-misses / total flashes) i.e. the score a floating point number
     # is in range [0..1]
     data = {}
+    
+    # Add data to dictionary
+    data["Minimum Time"] = min(t_good)
+    data["Maximum Time"] = max(t_good)
+    data["Average Time"] = sum(t_good) / len(t_good)
+    
+    print(data)
 
     # %% make dynamic filename and write JSON
 
@@ -100,3 +107,4 @@ if __name__ == "__main__":
     blinker(5, led)
 
     scorer(t)
+
