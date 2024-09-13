@@ -97,8 +97,8 @@ def scorer(t: list[int | None]) -> None:
         connect()
     except KeyboardInterrupt:
         machine.reset()
-    database_api_url = "https://miniproject-4cfcd-default-rtdb.firebaseio.com/"
-    response = requests.post(database_api_url, json=filename)
+    
+    requests.put(url="https://miniproject-4cfcd-default-rtdb.firebaseio.com/.json", json= data)
 
 
 if __name__ == "__main__":
