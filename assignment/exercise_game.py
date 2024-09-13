@@ -6,7 +6,7 @@ from machine import Pin
 import time
 import random
 import json
-
+import requests
 
 N: int = 3
 sample_ms = 10.0
@@ -76,6 +76,9 @@ def scorer(t: list[int | None]) -> None:
     print("write", filename)
 
     write_json(filename, data)
+    
+    database_api_url = "https://console.firebase.google.com/u/0/project/miniproject-4cfcd/firestore/databases/-default-/data"
+    response = requests.post(database_api_url, json=filename)
 
 
 if __name__ == "__main__":
