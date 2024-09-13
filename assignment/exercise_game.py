@@ -7,12 +7,27 @@ import time
 import random
 import json
 import requests
+import network
+
 
 N: int = 3
 sample_ms = 10.0
 on_ms = 500
 
-
+def connect():
+      #Connect to WLAN
+    ssid = "BU Guest (unencrypted)"
+    password =""
+    wlan = network.WLAN(network.STA_IF)
+    wlan.active(True)
+    wlan.connect(ssid, password)
+    while wlan.isconnected() == False:
+        print('Waiting for connection...')
+        time.sleep(1)
+    
+    print('Done')
+        
+        
 def random_time_interval(tmin: float, tmax: float) -> float:
     """return a random time interval between max and min"""
     return random.uniform(tmin, tmax)
@@ -77,7 +92,12 @@ def scorer(t: list[int | None]) -> None:
 
     write_json(filename, data)
     
-    database_api_url = "https://console.firebase.google.com/u/0/project/miniproject-4cfcd/firestore/databases/-default-/data"
+
+    try:
+        connect()
+    except KeyboardInterrupt:
+        machine.reset()
+    database_api_url = "https://miniproject-4cfcd-default-rtdb.firebaseio.com/"
     response = requests.post(database_api_url, json=filename)
 
 
